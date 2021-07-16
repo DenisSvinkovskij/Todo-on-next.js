@@ -54,7 +54,7 @@ const Modal: FC<IModal> = ({ isOpen, onClose, onEdit }) => {
         className="fixed inset-0 flex items-center justify-center bg-gray-400 bg-opacity-50"
         onClick={handleOverlayClick}
       >
-        <div className="relative bg-white p-8 w-1/3">
+        <div className="relative bg-white p-8 md:w-1/2 w-full">
           <i
             className="material-icons prefix absolute right-1 top-1 cursor-pointer"
             onClick={handleOverlayClick}

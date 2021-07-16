@@ -1,5 +1,5 @@
 import React from "react";
-import { ITodo } from "../types";
+import { ITodo } from "../../types";
 import TodoItem from "./TodoItem";
 
 interface ITodoList {
@@ -16,7 +16,7 @@ const TodoList: React.FC<ITodoList> = ({
   onEdit,
 }) => {
   return (
-    <ul className="container mx-auto w-6/12 ">
+    <ul className="container mx-auto md:w-6/12 space-y-3 w-full pt-5">
       {todos.map((todo) => (
         <TodoItem
           item={todo}

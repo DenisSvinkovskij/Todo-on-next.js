@@ -1,8 +1,8 @@
 import Head from "next/head";
 // import styles from "../styles/Home.module.css";
 import React, { useEffect, useState } from "react";
-import TodoForm from "../components/TodoForm";
-import TodoList from "../components/TodoList";
+import TodoForm from "../components/Todo/TodoForm";
+import TodoList from "../components/Todo/TodoList";
 import { ITodo } from "../types";
 import Header from "../components/Header";
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { ITodo } from "../types";
-import Modal from "./Modal";
+import { ITodo } from "../../types";
+import Modal from "../Modal";
 
 interface ITodoItem {
   item: ITodo;
@@ -23,16 +23,16 @@ const TodoItem: React.FC<ITodoItem> = ({
 
   return (
     <>
-      <li className="mb-2 shadow-md last:mb-0">
-        <label className="flex justify-between items-center p-2 pl-4 pr-4">
+      <li className="mb-2  shadow-md ">
+        <label className="flex justify-between items-center space-x-4  p-2 pl-4 pr-4 ">
           <input
             type="checkbox"
             className="cursor-pointer "
             checked={item.completed}
             onChange={() => toggleCompleted(item.id)}
           />
-          <span>{item.text}</span>
-          <div className="">
+          <p className=" break-all">{item.text}</p>
+          <div className="flex flex-nowrap">
             <i
               className="material-icons  prefix cursor-pointer"
               onClick={(e) => {
