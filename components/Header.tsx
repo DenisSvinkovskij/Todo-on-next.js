@@ -2,10 +2,8 @@ import React from "react";
 
 const Header: React.FC = () => {
   return (
-    <nav className="nav ">
-      <div className="nav-wrapper">
-        <h1>Todos</h1>
-      </div>
+    <nav className="w-full flex justify-center items-center pt-6 pb-6 bg-green-800 mb-7">
+      <h1 className="font-medium text-3xl text-white">Todos</h1>
     </nav>
   );
 };

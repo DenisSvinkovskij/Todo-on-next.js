@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
+// import styles from "../styles/Home.module.css";
 import React, { useEffect, useState } from "react";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
@@ -38,9 +38,18 @@ const Home: React.FC = () => {
     setTodos(
       todos.map((todo) => {
         if (todo.id === id) {
-          console.log(todo.completed);
-
           todo.completed = !todo.completed;
+        }
+        return todo;
+      })
+    );
+  };
+
+  const editTodoHandler = (id: number, text: string) => {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === id) {
+          todo.text = text;
         }
         return todo;
       })
@@ -55,13 +64,14 @@ const Home: React.FC = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main className="">
         <Header />
         <TodoForm onAdd={addTodoHandler} />
         <TodoList
           todos={todos}
           onDelete={deleteTodoHandler}
           toggleCompleted={toggleCompleted}
+          onEdit={editTodoHandler}
         />
       </main>
     </>

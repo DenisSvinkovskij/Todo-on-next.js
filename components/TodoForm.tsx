@@ -19,9 +19,9 @@ const TodoForm: React.FC<ITodoForm> = ({ onAdd }) => {
   };
 
   return (
-    <div className="form-container">
+    <div className="container mx-auto w-6/12 relative mb-4">
       <i
-        className="material-icons edit-icon prefix"
+        className="material-icons create-icon prefix absolute top-2 left-1 cursor-pointer"
         onClick={() => {
           if (input !== "") {
             onAdd(input);
@@ -34,7 +34,7 @@ const TodoForm: React.FC<ITodoForm> = ({ onAdd }) => {
       <input
         type="text"
         id="autocomplete-input"
-        className="input"
+        className="w-full p-2 pl-8 border"
         value={input}
         onChange={handleChangeInput}
         onKeyPress={handleKeyPres}
