@@ -1,5 +1,6 @@
 import { FC, useEffect, MouseEvent, useState } from "react";
 import { createPortal } from "react-dom";
+import IconClose from "../public/cross.svg";
 
 interface IModal {
   isOpen: boolean;
@@ -55,12 +56,12 @@ const Modal: FC<IModal> = ({ isOpen, onClose, onEdit }) => {
         onClick={handleOverlayClick}
       >
         <div className="relative bg-white p-8 md:w-1/2 w-full">
-          <i
-            className="material-icons prefix absolute right-1 top-1 cursor-pointer"
+          <IconClose
             onClick={handleOverlayClick}
-          >
-            close
-          </i>
+            width="20"
+            height="20"
+            className="fill-current absolute right-1 top-1 cursor-pointer stroke-0"
+          />
           <input
             type="text"
             className="w-full mb-4 p-2 border"

@@ -1,12 +1,11 @@
 import Head from "next/head";
-// import styles from "../styles/Home.module.css";
-import React, { useEffect, useState } from "react";
+import { FC, useEffect, useState, MouseEvent } from "react";
 import TodoForm from "../components/Todo/TodoForm";
 import TodoList from "../components/Todo/TodoList";
 import { ITodo } from "../types";
 import Header from "../components/Header";
 
-const Home: React.FC = () => {
+const Home: FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
   useEffect(() => {
@@ -27,7 +26,7 @@ const Home: React.FC = () => {
     setTodos((prev) => [todo, ...prev]);
   };
 
-  const deleteTodoHandler = (e: React.MouseEvent, id: number) => {
+  const deleteTodoHandler = (e: MouseEvent, id: number) => {
     e.preventDefault();
     if (window.confirm("Confirm deleting please")) {
       setTodos((prev) => prev.filter((todo) => todo.id !== id));

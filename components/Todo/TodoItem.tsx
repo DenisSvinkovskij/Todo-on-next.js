@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { ITodo } from "../../types";
 import Modal from "../Modal";
+import PencilSVG from "../../public/pencil.svg";
+import DeleteSVG from "../../public/bin2.svg";
 
 interface ITodoItem {
   item: ITodo;
@@ -9,7 +11,7 @@ interface ITodoItem {
   onEdit(id: number, text: string): void;
 }
 
-const TodoItem: React.FC<ITodoItem> = ({
+const TodoItem: FC<ITodoItem> = ({
   item,
   deleteTodo,
   toggleCompleted,
@@ -33,21 +35,20 @@ const TodoItem: React.FC<ITodoItem> = ({
           />
           <p className=" break-all">{item.text}</p>
           <div className="flex flex-nowrap">
-            <i
+            <PencilSVG
               className="material-icons  prefix cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
+              onClick={() => {
                 setIsModalOpen(true);
               }}
-            >
-              mode_edit
-            </i>
-            <i
-              className="material-icons prefix  delete-icon text-red-500 ml-2 cursor-pointer"
+              width="22"
+              height="22"
+            />
+            <DeleteSVG
+              className="material-icons prefix  delete-icon fill-current text-red-500 ml-2 cursor-pointer"
               onClick={deleteTodo}
-            >
-              delete
-            </i>
+              width="22"
+              height="22"
+            />
           </div>
         </label>
       </li>

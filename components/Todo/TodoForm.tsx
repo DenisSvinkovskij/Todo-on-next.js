@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import { FC, useState, ChangeEvent, KeyboardEvent } from "react";
+import PencilSVG from "../../public/pencil.svg";
 
 interface ITodoForm {
   onAdd(text: string): void;
 }
 
-const TodoForm: React.FC<ITodoForm> = ({ onAdd }) => {
+const TodoForm: FC<ITodoForm> = ({ onAdd }) => {
   const [input, setInput] = useState<string>("");
 
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
-  const handleKeyPres = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPres = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter" && input !== "") {
       onAdd(input);
       setInput("");
@@ -20,7 +21,7 @@ const TodoForm: React.FC<ITodoForm> = ({ onAdd }) => {
 
   return (
     <div className="container mx-auto w-6/12 relative mb-4">
-      <i
+      <PencilSVG
         className="material-icons create-icon prefix absolute top-2 left-1 cursor-pointer"
         onClick={() => {
           if (input !== "") {
@@ -28,9 +29,9 @@ const TodoForm: React.FC<ITodoForm> = ({ onAdd }) => {
             setInput("");
           }
         }}
-      >
-        mode_edit
-      </i>
+        width="22"
+        height="22"
+      />
       <input
         type="text"
         id="autocomplete-input"

@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { ITodo } from "../../types";
 import TodoItem from "./TodoItem";
 
@@ -9,7 +9,7 @@ interface ITodoList {
   onEdit(id: number, text: string): void;
 }
 
-const TodoList: React.FC<ITodoList> = ({
+const TodoList: FC<ITodoList> = ({
   todos,
   onDelete,
   toggleCompleted,
