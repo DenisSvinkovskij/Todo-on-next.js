@@ -20,7 +20,7 @@ const TodoForm: FC<ITodoForm> = ({ onAdd }) => {
   };
 
   return (
-    <div className="container mx-auto w-6/12 relative mb-4">
+    <div className="container mx-auto  relative mb-4 md:w-6/12  w-full ">
       <PencilSVG
         className="material-icons create-icon prefix absolute top-2 left-1 cursor-pointer"
         onClick={() => {
