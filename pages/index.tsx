@@ -1,60 +1,11 @@
 import Head from "next/head";
-import { FC, useEffect, useState, MouseEvent } from "react";
+import { FC } from "react";
 import TodoForm from "../components/Todo/TodoForm";
 import TodoList from "../components/Todo/TodoList";
-import { ITodo } from "../types";
+import { ITodoList } from "../types";
 import Header from "../components/Header";
 
-const Home: FC = () => {
-  const [todos, setTodos] = useState<ITodo[]>([]);
-
-  useEffect(() => {
-    setTodos(JSON.parse(localStorage.getItem("todos") || "[]"));
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-    console.log("use");
-  }, [todos]);
-
-  const addTodoHandler = (text: string): void => {
-    const todo: ITodo = {
-      text,
-      id: Date.now(),
-      completed: false,
-    };
-    setTodos((prev) => [todo, ...prev]);
-  };
-
-  const deleteTodoHandler = (e: MouseEvent, id: number) => {
-    e.preventDefault();
-    if (window.confirm("Confirm deleting please")) {
-      setTodos((prev) => prev.filter((todo) => todo.id !== id));
-    }
-  };
-
-  const toggleCompleted = (id: number) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed;
-        }
-        return todo;
-      })
-    );
-  };
-
-  const editTodoHandler = (id: number, text: string) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) {
-          todo.text = text;
-        }
-        return todo;
-      })
-    );
-  };
-
+const Home: FC<ITodoList> = ({ todos }) => {
   return (
     <>
       <Head>
@@ -65,16 +16,20 @@ const Home: FC = () => {
 
       <main className="">
         <Header />
-        <TodoForm onAdd={addTodoHandler} />
-        <TodoList
-          todos={todos}
-          onDelete={deleteTodoHandler}
-          toggleCompleted={toggleCompleted}
-          onEdit={editTodoHandler}
-        />
+        <TodoForm />
+        <TodoList todos={todos} />
       </main>
     </>
   );
 };
 
 export default Home;
+
+export async function getStaticProps() {
+  const res = await fetch(`http://localhost:3000/api/getAllTodos`);
+  const todos = await res.json();
+
+  return {
+    props: { todos }, // will be passed to the page component as props
+  };
+}

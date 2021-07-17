@@ -1,15 +1,8 @@
 import { FC, useState } from "react";
-import { ITodo } from "../../types";
-import Modal from "../Modal";
+import { ITodoItem } from "../../types";
+import Modal from "../EditingModal";
 import PencilSVG from "../../public/pencil.svg";
 import DeleteSVG from "../../public/bin2.svg";
-
-interface ITodoItem {
-  item: ITodo;
-  deleteTodo(e: React.MouseEvent): void;
-  toggleCompleted(id: number): void;
-  onEdit(id: number, text: string): void;
-}
 
 const TodoItem: FC<ITodoItem> = ({
   item,
@@ -17,7 +10,7 @@ const TodoItem: FC<ITodoItem> = ({
   toggleCompleted,
   onEdit,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isEditingModalOpen, setIsEditingModalOpen] = useState<boolean>(false);
 
   const handleEditTodo = (text: string) => {
     onEdit(item.id, text);
@@ -38,7 +31,7 @@ const TodoItem: FC<ITodoItem> = ({
             <PencilSVG
               className="material-icons  prefix cursor-pointer"
               onClick={() => {
-                setIsModalOpen(true);
+                setIsEditingModalOpen(true);
               }}
               width="22"
               height="22"
@@ -52,10 +45,10 @@ const TodoItem: FC<ITodoItem> = ({
           </div>
         </label>
       </li>
-      {isModalOpen && (
+      {isEditingModalOpen && (
         <Modal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          isOpen={isEditingModalOpen}
+          onClose={() => setIsEditingModalOpen(false)}
           onEdit={handleEditTodo}
         />
       )}

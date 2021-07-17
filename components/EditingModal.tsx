@@ -1,14 +1,9 @@
 import { FC, useEffect, MouseEvent, useState } from "react";
+import { IEditingModal } from "../types";
 import { createPortal } from "react-dom";
 import IconClose from "../public/cross.svg";
 
-interface IModal {
-  isOpen: boolean;
-  onClose: () => void;
-  onEdit(text: string): void;
-}
-
-const Modal: FC<IModal> = ({ isOpen, onClose, onEdit }) => {
+const EditingModal: FC<IEditingModal> = ({ isOpen, onClose, onEdit }) => {
   const modalRoot = document.getElementById("modal");
   const body = document.querySelector("body");
   const [input, setInput] = useState<string>("");
@@ -101,4 +96,4 @@ const Modal: FC<IModal> = ({ isOpen, onClose, onEdit }) => {
   );
 };
 
-export default Modal;
+export default EditingModal;

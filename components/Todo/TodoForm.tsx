@@ -1,12 +1,22 @@
 import { FC, useState, ChangeEvent, KeyboardEvent } from "react";
 import PencilSVG from "../../public/pencil.svg";
+import { ITodo } from "../../types";
 
-interface ITodoForm {
-  onAdd(text: string): void;
-}
-
-const TodoForm: FC<ITodoForm> = ({ onAdd }) => {
+const TodoForm: FC = () => {
   const [input, setInput] = useState<string>("");
+
+  const addTodoHandler = (text: string): void => {
+    const todo: ITodo = {
+      text,
+      id: Date.now(),
+      completed: false,
+    };
+
+    fetch(`http://localhost:3000/api/addTodo`, {
+      method: "POST",
+      body: JSON.stringify(todo),
+    });
+  };
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -14,7 +24,7 @@ const TodoForm: FC<ITodoForm> = ({ onAdd }) => {
 
   const handleKeyPres = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter" && input !== "") {
-      onAdd(input);
+      addTodoHandler(input);
       setInput("");
     }
   };
@@ -25,7 +35,7 @@ const TodoForm: FC<ITodoForm> = ({ onAdd }) => {
         className="material-icons create-icon prefix absolute top-2 left-1 cursor-pointer"
         onClick={() => {
           if (input !== "") {
-            onAdd(input);
+            addTodoHandler(input);
             setInput("");
           }
         }}
