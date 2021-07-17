@@ -1,24 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ITodo } from "../../types";
+import { ITodoCompletedResponse } from "../../types";
 import { todos } from "../../todos";
 
-type Data = ITodo;
+type Data = ITodoCompletedResponse;
 
-export default function addTodo(
+export default function toggleCompletedTodo(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   const { id } = JSON.parse(req.body);
 
   if (req.method === "PATCH") {
-    const newTodos = todos.reduce((acc, item) => {
-      if (item.id === id) {
-        item.completed = !item.completed;
+    todos.forEach((todo) => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed;
       }
-      return [...acc, item];
-    }, []);
+    });
 
-    return res.status(200);
+    return res.status(200).json({ id });
   }
   return res.status(400);
 }

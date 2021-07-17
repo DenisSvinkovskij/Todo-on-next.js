@@ -12,7 +12,7 @@ export interface ITodoItem {
   item: ITodo;
   deleteTodo(e: React.MouseEvent): void;
   toggleCompleted(id: number): void;
-  onEdit(id: number, text: string): void;
+  onEdit(id: number, text: string, completed: boolean): void;
 }
 
 export interface ITodoList {
@@ -23,4 +23,8 @@ export interface IEditingModal {
   isOpen: boolean;
   onClose(): void;
   onEdit(text: string): void;
+}
+
+export interface ITodoCompletedResponse {
+  id: number;
 }

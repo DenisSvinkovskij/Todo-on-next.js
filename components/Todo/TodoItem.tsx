@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, MouseEvent, useState } from "react";
 import { ITodoItem } from "../../types";
 import Modal from "../EditingModal";
 import PencilSVG from "../../public/pencil.svg";
@@ -13,7 +13,7 @@ const TodoItem: FC<ITodoItem> = ({
   const [isEditingModalOpen, setIsEditingModalOpen] = useState<boolean>(false);
 
   const handleEditTodo = (text: string) => {
-    onEdit(item.id, text);
+    onEdit(item.id, text, item.completed);
   };
 
   return (
@@ -30,7 +30,8 @@ const TodoItem: FC<ITodoItem> = ({
           <div className="flex flex-nowrap">
             <PencilSVG
               className="material-icons  prefix cursor-pointer"
-              onClick={() => {
+              onClick={(e: MouseEvent) => {
+                e.preventDefault();
                 setIsEditingModalOpen(true);
               }}
               width="22"

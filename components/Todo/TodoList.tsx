@@ -3,8 +3,6 @@ import { ITodoList } from "../../types";
 import TodoItem from "./TodoItem";
 
 const TodoList: FC<ITodoList> = ({ todos }) => {
-  console.log(todos);
-
   const deleteTodoHandler = (e: MouseEvent, id: number) => {
     e.preventDefault();
     if (window.confirm("Confirm deleting please")) {
@@ -16,21 +14,35 @@ const TodoList: FC<ITodoList> = ({ todos }) => {
   };
 
   const toggleCompleted = (id: number) => {
+    const body = { id: id };
     fetch(`http://localhost:3000/api/toggleCompletedTodo`, {
       method: "PATCH",
-      body: `{"id":${id}}`,
-    });
+      body: JSON.stringify(body),
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        todos.forEach((todo) => {
+          if (todo.id === res.id) {
+            todo.completed = !todo.completed;
+          }
+        });
+      });
   };
 
-  const editTodoHandler = (id: number, text: string) => {
-    // setTodos(
-    //   todos.map((todo) => {
-    //     if (todo.id === id) {
-    //       todo.text = text;
-    //     }
-    //     return todo;
-    //   })
-    // );
+  const editTodoHandler = (id: number, text: string, completed: boolean) => {
+    const body = { id: id, text: text, completed: completed };
+    fetch(`http://localhost:3000/api/editTodo`, {
+      method: "PUT",
+      body: JSON.stringify(body),
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        todos.forEach((todo) => {
+          if (todo.id === res.id) {
+            todo.text = text;
+          }
+        });
+      });
   };
   return (
     <ul className="container mx-auto md:w-6/12 space-y-3 w-full pt-5">
@@ -48,13 +60,3 @@ const TodoList: FC<ITodoList> = ({ todos }) => {
 };
 
 export default TodoList;
-
-export async function getStaticProps() {
-  const res = await fetch(`http://localhost:3000/api/getAllTodos`);
-  const todos = await res.json();
-  console.log(todos);
-
-  return {
-    props: { todos }, // will be passed to the page component as props
-  };
-}
