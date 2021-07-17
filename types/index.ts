@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface ITodo {
   text: string;
   id: number;
@@ -23,6 +25,12 @@ export interface IEditingModal {
   isOpen: boolean;
   onClose(): void;
   onEdit(text: string): void;
+}
+
+export interface IConfirmDeletingModal {
+  isOpen: boolean;
+  onClose(): void;
+  callback(e: React.MouseEvent): void;
 }
 
 export interface ITodoCompletedResponse {

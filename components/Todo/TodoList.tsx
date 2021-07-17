@@ -5,12 +5,10 @@ import TodoItem from "./TodoItem";
 const TodoList: FC<ITodoList> = ({ todos }) => {
   const deleteTodoHandler = (e: MouseEvent, id: number) => {
     e.preventDefault();
-    if (window.confirm("Confirm deleting please")) {
-      fetch(`http://localhost:3000/api/deleteTodo`, {
-        method: "DELETE",
-        body: `{"id":${id}}`,
-      });
-    }
+    fetch(`http://localhost:3000/api/deleteTodo`, {
+      method: "DELETE",
+      body: `{"id":${id}}`,
+    });
   };
 
   const toggleCompleted = (id: number) => {

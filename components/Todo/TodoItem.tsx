@@ -1,6 +1,7 @@
 import { FC, MouseEvent, useState } from "react";
 import { ITodoItem } from "../../types";
-import Modal from "../EditingModal";
+import EditingModal from "../EditingModal";
+import ConfirmDeletingModal from "../ConfirmDeletingModal";
 import PencilSVG from "../../public/pencil.svg";
 import DeleteSVG from "../../public/bin2.svg";
 
@@ -11,6 +12,8 @@ const TodoItem: FC<ITodoItem> = ({
   onEdit,
 }) => {
   const [isEditingModalOpen, setIsEditingModalOpen] = useState<boolean>(false);
+  const [isConfirmDeletingModalOpen, setIsConfirmDeletingModalOpen] =
+    useState<boolean>(false);
 
   const handleEditTodo = (text: string) => {
     onEdit(item.id, text, item.completed);
@@ -39,7 +42,10 @@ const TodoItem: FC<ITodoItem> = ({
             />
             <DeleteSVG
               className="material-icons prefix  delete-icon fill-current text-red-500 ml-2 cursor-pointer"
-              onClick={deleteTodo}
+              onClick={(e: MouseEvent) => {
+                e.preventDefault();
+                setIsConfirmDeletingModalOpen(true);
+              }}
               width="22"
               height="22"
             />
@@ -47,10 +53,17 @@ const TodoItem: FC<ITodoItem> = ({
         </label>
       </li>
       {isEditingModalOpen && (
-        <Modal
+        <EditingModal
           isOpen={isEditingModalOpen}
           onClose={() => setIsEditingModalOpen(false)}
           onEdit={handleEditTodo}
+        />
+      )}
+      {isConfirmDeletingModalOpen && (
+        <ConfirmDeletingModal
+          isOpen={isConfirmDeletingModalOpen}
+          onClose={() => setIsConfirmDeletingModalOpen(false)}
+          callback={deleteTodo}
         />
       )}
     </>
