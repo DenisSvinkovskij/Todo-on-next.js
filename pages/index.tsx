@@ -27,11 +27,11 @@ const Home: FC<ITodoList> = ({ todos }) => {
 
 export default Home;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch(`http://localhost:3000/api/getAllTodos`);
   const todos = await res.json();
 
   return {
-    props: { todos }, // will be passed to the page component as props
+    props: { todos },
   };
 }

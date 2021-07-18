@@ -9,8 +9,9 @@ const TodoList: FC<ITodoList> = ({ todos, setTodos }) => {
       method: "DELETE",
       body: `{"id":${id}}`,
     })
-      .then((data) => data.json())
-      .then((res) => setTodos(todos.filter((todo) => todo.id !== res.id)))
+      .then(() => {
+        setTodos(todos.filter((todo) => todo.id !== id));
+      })
       .catch(console.log);
   };
 
