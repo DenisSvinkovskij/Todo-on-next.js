@@ -2,11 +2,6 @@ import { FC, useState, ChangeEvent, KeyboardEvent } from "react";
 import PencilSVG from "../../public/pencil.svg";
 import { ITodo, ITodoList } from "../../types";
 
-const server =
-  process.env.NODE_ENV === "production"
-    ? "https://todo-on-next-js.vercel.app/"
-    : "http://localhost:3000/";
-
 const TodoForm: FC<ITodoList> = ({ todos, setTodos }) => {
   const [input, setInput] = useState<string>("");
 
@@ -17,7 +12,7 @@ const TodoForm: FC<ITodoList> = ({ todos, setTodos }) => {
       completed: false,
     };
 
-    fetch(`${server}api/addTodo`, {
+    fetch(`http://localhost:3000/api/addTodo`, {
       method: "POST",
       body: JSON.stringify(todo),
     })
