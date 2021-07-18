@@ -2,11 +2,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { ITodo } from "../../types";
 import { todos } from "../../todos";
 
-type Data = ITodo;
-
 export default function editTodo(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<ITodo>
 ) {
   const { id, text, completed } = JSON.parse(req.body);
 

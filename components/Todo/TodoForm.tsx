@@ -1,8 +1,8 @@
 import { FC, useState, ChangeEvent, KeyboardEvent } from "react";
 import PencilSVG from "../../public/pencil.svg";
-import { ITodo } from "../../types";
+import { ITodo, ITodoList } from "../../types";
 
-const TodoForm: FC = () => {
+const TodoForm: FC<ITodoList> = ({ todos, setTodos }) => {
   const [input, setInput] = useState<string>("");
 
   const addTodoHandler = (text: string): void => {
@@ -15,7 +15,10 @@ const TodoForm: FC = () => {
     fetch(`http://localhost:3000/api/addTodo`, {
       method: "POST",
       body: JSON.stringify(todo),
-    });
+    })
+      .then((data) => data.json())
+      .then((newTodo) => setTodos([newTodo, ...todos]))
+      .catch(console.log);
   };
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {

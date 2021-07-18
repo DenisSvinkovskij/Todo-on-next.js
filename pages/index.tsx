@@ -1,11 +1,13 @@
 import Head from "next/head";
-import { FC } from "react";
+import { FC, useState } from "react";
 import TodoForm from "../components/Todo/TodoForm";
 import TodoList from "../components/Todo/TodoList";
-import { ITodoList } from "../types";
+import { ITodo, ITodoList } from "../types";
 import Header from "../components/Header";
 
 const Home: FC<ITodoList> = ({ todos }) => {
+  const [allTodos, setAllTodos] = useState<ITodo[]>(todos);
+
   return (
     <>
       <Head>
@@ -16,8 +18,8 @@ const Home: FC<ITodoList> = ({ todos }) => {
 
       <main className="">
         <Header />
-        <TodoForm />
-        <TodoList todos={todos} />
+        <TodoForm todos={allTodos} setTodos={setAllTodos} />
+        <TodoList todos={allTodos} setTodos={setAllTodos} />
       </main>
     </>
   );

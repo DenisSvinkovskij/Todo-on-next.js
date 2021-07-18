@@ -2,13 +2,16 @@ import { FC, MouseEvent } from "react";
 import { ITodoList } from "../../types";
 import TodoItem from "./TodoItem";
 
-const TodoList: FC<ITodoList> = ({ todos }) => {
+const TodoList: FC<ITodoList> = ({ todos, setTodos }) => {
   const deleteTodoHandler = (e: MouseEvent, id: number) => {
     e.preventDefault();
     fetch(`http://localhost:3000/api/deleteTodo`, {
       method: "DELETE",
       body: `{"id":${id}}`,
-    });
+    })
+      .then((data) => data.json())
+      .then((res) => setTodos(todos.filter((todo) => todo.id !== res.id)))
+      .catch(console.log);
   };
 
   const toggleCompleted = (id: number) => {
@@ -19,12 +22,14 @@ const TodoList: FC<ITodoList> = ({ todos }) => {
     })
       .then((data) => data.json())
       .then((res) => {
-        todos.forEach((todo) => {
-          if (todo.id === res.id) {
-            todo.completed = !todo.completed;
-          }
-        });
-      });
+        setTodos(
+          todos.map((todo) => {
+            if (todo.id === res.id) todo.completed = !todo.completed;
+            return todo;
+          })
+        );
+      })
+      .catch(console.log);
   };
 
   const editTodoHandler = (id: number, text: string, completed: boolean) => {
@@ -35,11 +40,7 @@ const TodoList: FC<ITodoList> = ({ todos }) => {
     })
       .then((data) => data.json())
       .then((res) => {
-        todos.forEach((todo) => {
-          if (todo.id === res.id) {
-            todo.text = text;
-          }
-        });
+        setTodos(todos.map((todo) => (todo.id === res.id ? res : todo)));
       });
   };
   return (

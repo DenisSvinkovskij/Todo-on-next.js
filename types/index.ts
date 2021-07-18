@@ -1,4 +1,4 @@
-import React from "react";
+import { Dispatch, SetStateAction, MouseEvent } from "react";
 
 export interface ITodo {
   text: string;
@@ -12,13 +12,14 @@ export interface ITodoForm {
 
 export interface ITodoItem {
   item: ITodo;
-  deleteTodo(e: React.MouseEvent): void;
+  deleteTodo(e: MouseEvent): void;
   toggleCompleted(id: number): void;
   onEdit(id: number, text: string, completed: boolean): void;
 }
 
 export interface ITodoList {
   todos: ITodo[];
+  setTodos: Dispatch<SetStateAction<ITodo[]>>;
 }
 
 export interface IEditingModal {
@@ -30,7 +31,7 @@ export interface IEditingModal {
 export interface IConfirmDeletingModal {
   isOpen: boolean;
   onClose(): void;
-  callback(e: React.MouseEvent): void;
+  callback(e: MouseEvent): void;
 }
 
 export interface ITodoCompletedResponse {

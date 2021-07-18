@@ -2,11 +2,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { ITodoCompletedResponse } from "../../types";
 import { todos } from "../../todos";
 
-type Data = ITodoCompletedResponse;
-
 export default function toggleCompletedTodo(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<ITodoCompletedResponse>
 ) {
   const { id } = JSON.parse(req.body);
 
