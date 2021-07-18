@@ -2,10 +2,15 @@ import { FC, MouseEvent } from "react";
 import { ITodoList } from "../../types";
 import TodoItem from "./TodoItem";
 
+const server =
+  process.env.NODE_ENV === "production"
+    ? "https://todo-on-next-js.vercel.app/"
+    : "http://localhost:3000/";
+
 const TodoList: FC<ITodoList> = ({ todos, setTodos }) => {
   const deleteTodoHandler = (e: MouseEvent, id: number) => {
     e.preventDefault();
-    fetch(`http://localhost:3000/api/deleteTodo`, {
+    fetch(`${server}api/deleteTodo`, {
       method: "DELETE",
       body: `{"id":${id}}`,
     })
@@ -17,7 +22,7 @@ const TodoList: FC<ITodoList> = ({ todos, setTodos }) => {
 
   const toggleCompleted = (id: number) => {
     const body = { id: id };
-    fetch(`http://localhost:3000/api/toggleCompletedTodo`, {
+    fetch(`${server}api/toggleCompletedTodo`, {
       method: "PATCH",
       body: JSON.stringify(body),
     })
@@ -35,7 +40,7 @@ const TodoList: FC<ITodoList> = ({ todos, setTodos }) => {
 
   const editTodoHandler = (id: number, text: string, completed: boolean) => {
     const body = { id: id, text: text, completed: completed };
-    fetch(`http://localhost:3000/api/editTodo`, {
+    fetch(`${server}api/editTodo`, {
       method: "PUT",
       body: JSON.stringify(body),
     })
