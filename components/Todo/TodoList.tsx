@@ -42,7 +42,8 @@ const TodoList: FC<ITodoList> = ({ todos, setTodos }) => {
       .then((data) => data.json())
       .then((res) => {
         setTodos(todos.map((todo) => (todo.id === res.id ? res : todo)));
-      });
+      })
+      .catch(console.log);
   };
   return (
     <ul className="container mx-auto md:w-6/12 space-y-3 w-full pt-5">
