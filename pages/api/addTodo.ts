@@ -8,7 +8,6 @@ export default function addTodo(
 ) {
   if (req.method === "POST") {
     todos.push(JSON.parse(req.body));
-    console.log(todos);
 
     return res.status(200).json(req.body);
   }

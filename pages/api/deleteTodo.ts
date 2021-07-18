@@ -15,9 +15,7 @@ export default function deleteTodo(
   if (req.method === "DELETE") {
     const idx = todos.findIndex((item) => item.id === id);
 
-    console.log(todos, "delete");
     todos.splice(idx, 1);
-    console.log(todos, "delete");
 
     return res.status(204).json({ id });
   }
